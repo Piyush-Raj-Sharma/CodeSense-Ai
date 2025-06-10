@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import CodeInput from "./components/CodeInput";
 import ExplainDebugButtons from "./components/ExplainDebugButtons";
+import LanguageSelector from "./components/LanguageSelector";
 
 const App = () => {
   const [code, setCode] = useState("");
@@ -18,6 +19,7 @@ const App = () => {
       <h1 className="text-5xl font-bold text-center mb-6">CodeSense AI</h1>
 
       <form className="w-full max-w-3xl mx-auto flex flex-col" onSubmit={submitHandler}>
+        <LanguageSelector language = {language} setLanguage = {setLanguage}/>
         <CodeInput code={code} setCode={setCode} />
         <ExplainDebugButtons setMode={setMode} />
       </form>
