@@ -16,8 +16,6 @@ const CodeSense = () => {
 
   return (
     <div className="min-h-screen bg-gray-950 text-white px-4 py-6">
-      <h1 className="text-5xl font-bold text-center mb-6">CodeSense AI</h1>
-
       <form className="w-full max-w-3xl mx-auto flex flex-col" onSubmit={submitHandler}>
         <LanguageSelector language = {language} setLanguage = {setLanguage}/>
         <CodeInput code={code} setCode={setCode} />

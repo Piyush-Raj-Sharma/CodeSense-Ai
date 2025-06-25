@@ -16,7 +16,7 @@ const Navbar = () => {
         {/* Brand */}
         <div className="flex items-center gap-2 text-white text-2xl font-semibold">
           <Sparkles size={24} className="text-blue-400" />
-          CodeSense AI
+          <NavLink to="/">CodeSense AI</NavLink>
         </div>
 
         {/* Desktop Links */}

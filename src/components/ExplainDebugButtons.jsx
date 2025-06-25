@@ -6,14 +6,14 @@ const ExplainDebugButtons = () => {
       <button
         type="submit"
         onClick={() => setMode("explain")}
-        className="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded"
+        className="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded active:scale-95"
       >
         Explain
       </button>
       <button
         type="submit"
         onClick={() => setMode("debug")}
-        className="bg-red-600 hover:bg-red-700 px-4 py-2 rounded"
+        className="bg-red-600 hover:bg-red-700 px-4 py-2 rounded active:scale-95"
       >
         Debug
       </button>
