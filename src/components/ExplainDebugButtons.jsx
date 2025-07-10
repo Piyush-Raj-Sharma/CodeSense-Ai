@@ -1,7 +1,6 @@
-import React from 'react'
 
-const ExplainDebugButtons = () => {
-    return (
+const ExplainDebugButtons = ({ setMode }) => {
+  return (
     <div className="flex justify-start mt-4 gap-2">
       <button
         type="submit"
@@ -21,5 +20,4 @@ const ExplainDebugButtons = () => {
   );
 };
 
-
-export default ExplainDebugButtons
+export default ExplainDebugButtons;

@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import { useContext, useState } from "react";
 import LanguageSelector from "../components/LanguageSelector";
 import CodeInput from "../components/CodeInput";
 import ExplainDebugButtons from "../components/ExplainDebugButtons";
+import { CodeContext } from "../context/codeContext";
 
 const CodeSense = () => {
-  const [code, setCode] = useState("");
+  const { code, setCode } = useContext(CodeContext);
   const [language, setLanguage] = useState("javascript");
   const [output, setOutput] = useState("");
   const [loading, setLoading] = useState(false);
