@@ -23,7 +23,7 @@ const CodeInput = ({ code, setCode, language }) => {
   return (
     <div
       onClick={handleContainerClick}
-      className="w-full max-w-5xl bg-gray-900 text-sm font-mono rounded-md shadow-md overflow-hidden flex border border-gray-700"
+      className="w-full max-w-5xl max-h-xl bg-gray-900 text-sm font-mono rounded-md shadow-md overflow-hidden flex border border-gray-700"
     >
       {/* Line Numbers */}
       <div className="bg-gray-800 text-gray-500 px-4 py-4 text-right select-none">

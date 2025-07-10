@@ -18,12 +18,16 @@ app.get("/", (req, res) => {
 app.post("/analyze", async (req, res) => {
   const { code, language, mode } = req.body;
 
-  const prompt = `
-You are a ${language} expert. ${
-    mode === "explain"
-      ? "Explain this code line-by-line."
-      : "Find and explain bugs in this code."
-  }
+const prompt = `
+You are an expert ${language} developer.
+
+${
+  mode === "explain"
+    ? "Explain the following code line-by-line. Make sure to describe the purpose of each part in a clear and concise manner."
+    : `Identify all bugs and issues in the code below. Return the corrected version of the code, and add comments wherever you make changes explaining why those changes were necessary. Keep the explanation concise and helpful.`
+}
+
+
 
 \`\`\`${language}
 ${code}
@@ -40,7 +44,7 @@ ${code}
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          model: "llama3-8b-8192", 
+          model: "llama3-8b-8192",
           messages: [
             {
               role: "system",

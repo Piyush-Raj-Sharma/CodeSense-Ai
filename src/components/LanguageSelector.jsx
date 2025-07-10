@@ -15,40 +15,35 @@ const LanguageSelector = ({ language, setLanguage }) => {
   const selected = languages.find((l) => l.id === language) || languages[0];
 
   return (
-    <div className="w-full max-w-xs mb-6">
+    <div className="w-full max-w-sm">
+      
       <Listbox value={selected} onChange={(val) => setLanguage(val.id)}>
-        <Listbox.Label className="block mb-2 text-sm font-semibold text-gray-300">
-          Select Language
+        <Listbox.Label className="block mb-2 text-sm font-semibold text-white tracking-wide">
+          Programming Language
         </Listbox.Label>
 
         <div className="relative">
-          <Listbox.Button
-            className="
-              relative w-full cursor-pointer rounded-lg bg-gradient-to-r from-gray-800 via-gray-900 to-black
-              py-3 px-4 pr-10 text-left shadow-md border border-gray-700 hover:border-blue-500
-              focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300 ease-in-out
-            "
-          >
-            <span className="block truncate text-white">{selected.name}</span>
-            <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3">
+          {/* Button */}
+          <Listbox.Button className="relative w-full cursor-pointer rounded-xl bg-white/5 backdrop-blur-md border border-white/10 py-3 px-4 pr-10 text-left text-white shadow-inner transition hover:border-blue-400 focus:outline-none focus:ring-2 focus:ring-blue-500">
+            <span className="block truncate font-medium">{selected.name}</span>
+            <span className="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
               <ChevronDown className="h-5 w-5 text-gray-400" />
             </span>
           </Listbox.Button>
 
-          <Listbox.Options
-            className="
-              absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-md bg-gray-900 py-1 text-base
-              shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm
-            "
-          >
+          {/* Options */}
+          <Listbox.Options className="absolute z-20 mt-2 w-full rounded-lg bg-[#1a1a2f] shadow-xl ring-1 ring-white/10 backdrop-blur-md overflow-auto max-h-60 focus:outline-none text-sm">
             {languages.map((lang) => (
               <Listbox.Option
                 key={lang.id}
                 value={lang}
                 className={({ active }) =>
-                  `${
-                    active ? "bg-blue-600 text-white" : "text-gray-300"
-                  } relative cursor-pointer select-none py-2 pl-10 pr-4`
+                  `relative select-none py-2 pl-10 pr-4 cursor-pointer transition-all duration-150 ease-in-out
+                  ${
+                    active
+                      ? "bg-blue-600/80 text-white"
+                      : "text-gray-300 hover:bg-white/5"
+                  }`
                 }
               >
                 {({ selected, active }) => (
@@ -60,15 +55,15 @@ const LanguageSelector = ({ language, setLanguage }) => {
                     >
                       {lang.name}
                     </span>
-                    {selected ? (
+                    {selected && (
                       <span
                         className={`absolute inset-y-0 left-0 flex items-center pl-3 ${
-                          active ? "text-white" : "text-blue-600"
+                          active ? "text-white" : "text-blue-500"
                         }`}
                       >
                         <Check className="h-5 w-5" />
                       </span>
-                    ) : null}
+                    )}
                   </>
                 )}
               </Listbox.Option>
