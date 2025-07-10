@@ -23,8 +23,8 @@ You are an expert ${language} developer.
 
 ${
   mode === "explain"
-    ? "Explain the following code line-by-line. Make sure to describe the purpose of each part in a clear and concise manner."
-    : `Identify all bugs and issues in the code below. Return the corrected version of the code, and add comments wherever you make changes explaining why those changes were necessary. Keep the explanation concise and helpful.`
+    ? "Explain the following code line-by-line in. Make sure to describe the purpose of each part in a clear and concise manner. Keep it short"
+    : `Identify all bugs and issues in the code below. Return the corrected version of the code, and add comments wherever you make changes explaining why those changes were necessary. Keep the explanation concise and helpful &  Keep it short.`
 }
 
 
