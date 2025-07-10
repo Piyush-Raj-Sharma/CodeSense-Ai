@@ -3,50 +3,40 @@ import Editor from "react-simple-code-editor";
 import Prism from "prismjs";
 import "prismjs/themes/prism-tomorrow.css";
 
-const CodeInput = ({ code, setCode, language }) => {
-  const editorRef = useRef(null);
+// Load required language grammars
+import "prismjs/components/prism-javascript";
+import "prismjs/components/prism-python";
+import "prismjs/components/prism-java";
 
-  const lineCount = code.split("\n").length;
-  const lineNumbers = [];
-  for (let i = 1; i <= lineCount; i++) {
-    lineNumbers.push(i);
-  }
+const CodeInput = ({ code, setCode, language }) => {
+  const textareaRef = useRef(null);
 
   const handleContainerClick = () => {
-    if (editorRef.current) {
-      editorRef.current.focus();
+    if (textareaRef.current) {
+      textareaRef.current.focus();
     }
   };
+
+  const lineCount = code.split("\n").length;
+  const lineNumbers = Array.from({ length: lineCount }, (_, i) => i + 1);
 
   return (
     <div
       onClick={handleContainerClick}
-      className="w-full max-w-4xl relative bg-gray-900 text-sm font-mono rounded-md shadow-md overflow-hidden flex border border-gray-700 cursor-text max-h-[400px] overflow-y-auto"
-      role="textbox"
-      aria-multiline="true"
-      aria-label="Code editor"
+      className="w-full max-w-5xl bg-gray-900 text-sm font-mono rounded-md shadow-md overflow-hidden flex border border-gray-700"
     >
       {/* Line Numbers */}
       <div className="bg-gray-800 text-gray-500 px-4 py-4 text-right select-none">
         {lineNumbers.map((line) => (
-          <div key={line} className="h-6 leading-[24px]">
+          <div key={line} className="h-5 leading-5">
             {line}
           </div>
         ))}
       </div>
 
-      {/* Placeholder */}
-      {code.trim() === "" && (
-        <div className="absolute top-4 left-[72px] pointer-events-none select-none text-gray-500 whitespace-pre-wrap font-mono">
-          {/* Adjust left to align after line numbers */}
-          {"// Paste your code here...\n// or start typing..."}
-        </div>
-      )}
-
       {/* Code Editor */}
-      <div className="w-full px-4 py-4">
+      <div className="w-full px-4 py-4 overflow-auto">
         <Editor
-          ref={editorRef}
           value={code}
           onValueChange={setCode}
           highlight={(code) =>
@@ -57,9 +47,11 @@ const CodeInput = ({ code, setCode, language }) => {
             )
           }
           padding={0}
-          className="focus:outline-none text-white min-h-[200px] whitespace-pre-wrap break-words leading-[24px]"
+          textarearef={textareaRef} // ✅ this makes focus() work
+          className="focus:outline-none text-white min-h-[200px] whitespace-pre-wrap break-words"
           style={{
             fontFamily: "monospace",
+            fontSize: 14,
           }}
         />
       </div>
