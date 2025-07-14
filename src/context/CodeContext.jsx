@@ -8,12 +8,32 @@ const CodeProvider = ({ children }) => {
     return storedCode ? JSON.parse(storedCode) : "";
   });
 
+  const [language, setLanguage] = useState(() => {
+    const storedLang = localStorage.getItem("userLang");
+    return storedLang ? JSON.parse(storedLang) : "javascript";
+  });
+
+  const [output, setOutput] = useState("");
+
   useEffect(() => {
     localStorage.setItem("userCode", JSON.stringify(code));
   }, [code]);
 
+  useEffect(() => {
+    localStorage.setItem("userLang", JSON.stringify(language));
+  }, [language]);
+
   return (
-    <CodeContext.Provider value={{ code, setCode }}>
+    <CodeContext.Provider
+      value={{
+        code,
+        setCode,
+        language,
+        setLanguage,
+        output,
+        setOutput, // ✅ Include this
+      }}
+    >
       {children}
     </CodeContext.Provider>
   );
