@@ -8,7 +8,8 @@ import CodeOutput from "../components/CodeOutput";
 import PreviousCodes from "../components/PreviousCodes"; // ✅
 
 const CodeSense = () => {
-  const { code, setCode, language, setLanguage, output, setOutput } = useContext(CodeContext);
+  const { code, setCode, language, setLanguage, output, setOutput } =
+    useContext(CodeContext);
   const [loading, setLoading] = useState(false);
   const [mode, setMode] = useState("explain");
   const [showOutput, setShowOutput] = useState(false);
@@ -58,16 +59,6 @@ const CodeSense = () => {
           <form onSubmit={submitHandler} className="space-y-6">
             <div className="w-full flex flex-col sm:flex-row sm:justify-between gap-4 sm:items-end">
               <LanguageSelector language={language} setLanguage={setLanguage} />
-
-              <button
-                type="button"
-                onClick={() =>
-                  localStorage.setItem("output", JSON.stringify(code))
-                }
-                className="text-sm px-5 py-2 bg-green-600 hover:bg-green-700 rounded-md transition font-medium text-white w-full sm:w-auto"
-              >
-                💾 Save Code
-              </button>
             </div>
 
             <ExplainDebugButtons setMode={setMode} />

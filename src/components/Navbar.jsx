@@ -8,76 +8,57 @@ const Navbar = () => {
   const navLinkStyle = ({ isActive }) =>
     isActive
       ? "text-blue-400 font-semibold"
-      : "text-gray-300 hover:text-blue-400 transition-colors duration-200";
+      : "text-gray-300 hover:text-blue-400 transition duration-200";
 
   return (
-    <nav className="sticky top-0 z-50 w-full bg-gradient-to-br from-gray-900 via-gray-950 to-black shadow-md">
-      <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
-        {/* Brand */}
-        <div className="flex items-center gap-2 text-white text-2xl font-semibold">
+    <header className="sticky top-0 z-50 w-full bg-gradient-to-br from-gray-900 via-gray-950 to-black shadow-md">
+      <nav className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+        {/* Brand Logo */}
+        <NavLink
+          to="/"
+          className="flex items-center gap-2 text-2xl font-semibold text-white hover:text-blue-400 transition"
+        >
           <Sparkles size={24} className="text-blue-400" />
-          <NavLink to="/" className="hover:text-blue-400 transition">
-            CodeSense AI
-          </NavLink>
-        </div>
+          CodeSense AI
+        </NavLink>
 
-        {/* Desktop Nav */}
+        {/* Desktop Links */}
         <div className="hidden md:flex gap-6 text-lg">
-          <NavLink to="/" className={navLinkStyle}>
-            Home
-          </NavLink>
-          <NavLink to="/codesense-ai" className={navLinkStyle}>
-            CodeSense AI
-          </NavLink>
-          <NavLink to="/about" className={navLinkStyle}>
-            About Us
-          </NavLink>
+          <NavLink to="/" className={navLinkStyle}>Home</NavLink>
+          <NavLink to="/codesense-ai" className={navLinkStyle}>CodeSense AI</NavLink>
+          <NavLink to="/about" className={navLinkStyle}>About Us</NavLink>
         </div>
 
-        {/* Mobile Menu Toggle */}
-        <div className="md:hidden">
-          <button
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
-            className="text-white focus:outline-none"
-            aria-label="Toggle menu"
-            aria-expanded={isMenuOpen}
-          >
-            {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
-          </button>
-        </div>
-      </div>
+        {/* Mobile Menu Icon */}
+        <button
+          onClick={() => setIsMenuOpen(!isMenuOpen)}
+          className="md:hidden text-white focus:outline-none"
+          aria-label="Toggle navigation menu"
+          aria-expanded={isMenuOpen}
+        >
+          {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
+        </button>
+      </nav>
 
-      {/* Mobile Menu Slide-in */}
+      {/* Mobile Menu Links */}
       <div
-        className={`md:hidden transition-all duration-300 ease-in-out overflow-hidden ${
+        className={`md:hidden overflow-hidden transition-all duration-300 ease-in-out ${
           isMenuOpen ? "max-h-60 py-4" : "max-h-0"
         } bg-gray-950 px-6`}
       >
         <div className="flex flex-col gap-4 text-lg">
-          <NavLink
-            to="/"
-            className={navLinkStyle}
-            onClick={() => setIsMenuOpen(false)}
-          >
+          <NavLink to="/" className={navLinkStyle} onClick={() => setIsMenuOpen(false)}>
             Home
           </NavLink>
-          <NavLink
-            to="/codesense-ai"
-            className={navLinkStyle}
-            onClick={() => setIsMenuOpen(false)}
-          >
+          <NavLink to="/codesense-ai" className={navLinkStyle} onClick={() => setIsMenuOpen(false)}>
             CodeSense AI
           </NavLink>
-          <NavLink
-            to="/about"
-            className={navLinkStyle}
-            onClick={() => setIsMenuOpen(false)}
-          >
+          <NavLink to="/about" className={navLinkStyle} onClick={() => setIsMenuOpen(false)}>
             About Us
           </NavLink>
         </div>
       </div>
-    </nav>
+    </header>
   );
 };
 
