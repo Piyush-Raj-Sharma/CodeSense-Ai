@@ -1,7 +1,8 @@
 import { BrowserRouter } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import MainRouter from "./router/MainRouter";
-import CodeProvider from "./context/codeContext";
+import CodeProvider from "./context/CodeContext";
+
 
 const App = () => {
   return (
