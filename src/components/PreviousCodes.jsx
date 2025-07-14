@@ -6,7 +6,7 @@ const PreviousCodes = () => {
   const { setCode, code } = useContext(CodeContext);
   const [savedCodes, setSavedCodes] = useState([]);
   const [isOpen, setIsOpen] = useState(false);
-  const [activeSessionId, setActiveSessionId] = useState(null); // track current
+  const [activeSessionId, setActiveSessionId] = useState(null);
 
   useEffect(() => {
     const saved = localStorage.getItem("savedSessions");
@@ -17,102 +17,98 @@ const PreviousCodes = () => {
 
   const newSessionHandler = () => {
     setCode("");
-    setActiveSessionId(null); // clear session reference
+    setActiveSessionId(null);
   };
 
   const saveCodeHandler = () => {
-    if (!code.trim()) return;
-
-    if (activeSessionId !== null) {
-      //Don't save again if it's already a loaded session
-      return;
-    }
+    if (!code.trim() || activeSessionId !== null) return;
 
     const newSession = {
       id: Date.now(),
       content: code,
     };
 
-    const updatedSessions = [newSession, ...savedCodes];
-    setSavedCodes(updatedSessions);
-    localStorage.setItem("savedSessions", JSON.stringify(updatedSessions));
-    setActiveSessionId(newSession.id); // Optional: mark as saved
+    const updated = [newSession, ...savedCodes];
+    setSavedCodes(updated);
+    localStorage.setItem("savedSessions", JSON.stringify(updated));
+    setActiveSessionId(newSession.id);
   };
 
   const loadSession = (sessionCode, sessionId) => {
     setCode(sessionCode);
-    setActiveSessionId(sessionId); //track loaded session
+    setActiveSessionId(sessionId);
   };
 
   const deleteSession = (id) => {
-    const updatedSessions = savedCodes.filter((entry) => entry.id !== id);
-    setSavedCodes(updatedSessions);
-    localStorage.setItem("savedSessions", JSON.stringify(updatedSessions));
+    const updated = savedCodes.filter((entry) => entry.id !== id);
+    setSavedCodes(updated);
+    localStorage.setItem("savedSessions", JSON.stringify(updated));
 
-    if (id === activeSessionId) {
-      newSessionHandler(); // reset editor if current session is deleted
-    }
+    if (id === activeSessionId) newSessionHandler();
   };
 
   return (
     <>
-      {/* Toggle Button for Mobile */}
+      {/* Mobile Toggle */}
       <button
         className="fixed top-4 left-4 z-50 p-2 bg-gray-800 rounded-md text-white shadow-md lg:hidden"
         onClick={() => setIsOpen(!isOpen)}
+        aria-label="Toggle sidebar"
       >
         {isOpen ? <X size={20} /> : <Menu size={20} />}
       </button>
 
       {/* Sidebar */}
       <aside
-        className={`fixed top-16 left-0 z-40 h-[94%] w-64 bg-gray-900 border-r border-gray-700 p-4 flex-col overflow-y-auto custom-scrollbar transition-transform duration-300 transform ${
+        className={`fixed top-16 left-0 z-40 h-[calc(100vh-4rem)] w-64 bg-[#101018]/90 border-r border-white/10 backdrop-blur-md p-4 transition-transform duration-300 overflow-y-auto custom-scrollbar transform ${
           isOpen ? "translate-x-0" : "-translate-x-full"
         } lg:translate-x-0 lg:flex`}
       >
-        <h2 className="text-lg font-semibold text-white mb-4">
-          📁 Code Sessions
-        </h2>
+        <div className="w-full">
+          <h2 className="text-lg font-semibold text-white mb-4">📁 Code Sessions</h2>
 
-        <button
-          onClick={newSessionHandler}
-          className="mb-2 w-full bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium py-2 px-3 rounded-md transition"
-        >
-          ➕ New Code
-        </button>
+          <button
+            onClick={newSessionHandler}
+            className="mb-4 w-full bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium py-2 px-3 rounded-lg transition"
+          >
+            ➕ New Code
+          </button>
 
-        {savedCodes.length === 0 ? (
-          <p className="text-gray-400 text-xs italic">No saved code found.</p>
-        ) : (
-          <ul className="space-y-4">
-            {savedCodes.map((entry, index) => (
-              <li
-                key={entry.id}
-                className="relative bg-gray-800 text-gray-300 text-xs p-3 rounded-md border border-gray-600 max-h-32 overflow-auto group"
-              >
-                <span className="block text-blue-400 font-medium mb-1">
-                  Entry #{index + 1}
-                </span>
-
-                <code
-                  onClick={() => loadSession(entry.content)}
-                  className="block whitespace-pre-wrap break-words cursor-pointer hover:text-white transition"
+          {savedCodes.length === 0 ? (
+            <p className="text-gray-400 text-xs italic">No saved sessions yet.</p>
+          ) : (
+            <ul className="space-y-4">
+              {savedCodes.map((entry, index) => (
+                <li
+                  key={entry.id}
+                  className={`relative p-3 rounded-lg border text-xs transition group ${
+                    entry.id === activeSessionId
+                      ? "bg-blue-950/50 border-blue-600 text-white"
+                      : "bg-white/5 border-white/10 text-gray-300"
+                  }`}
                 >
-                  {entry.content.slice(0, 20)}...
-                </code>
+                  <div className="flex items-start justify-between">
+                    <span className="text-blue-400 font-medium mb-1">Entry #{index + 1}</span>
+                    <button
+                      onClick={() => deleteSession(entry.id)}
+                      className="text-gray-500 hover:text-red-500 transition"
+                      title="Delete session"
+                    >
+                      <Trash2 size={14} />
+                    </button>
+                  </div>
 
-                {/* Delete Icon */}
-                <button
-                  onClick={() => deleteSession(entry.id)}
-                  className="absolute top-2 right-2 text-gray-500 hover:text-red-500 transition"
-                  title="Delete"
-                >
-                  <Trash2 size={14} />
-                </button>
-              </li>
-            ))}
-          </ul>
-        )}
+                  <code
+                    onClick={() => loadSession(entry.content, entry.id)}
+                    className="block whitespace-pre-wrap break-words cursor-pointer hover:text-white transition mt-1"
+                  >
+                    {entry.content.slice(0, 20)}...
+                  </code>
+                </li>
+              ))}
+            </ul>
+          )}
+        </div>
       </aside>
     </>
   );
