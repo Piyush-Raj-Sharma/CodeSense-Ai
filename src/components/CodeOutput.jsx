@@ -1,4 +1,3 @@
-import React from "react";
 import Prism from "prismjs";
 import { Bot, X } from "lucide-react";
 import "prismjs/themes/prism-tomorrow.css";

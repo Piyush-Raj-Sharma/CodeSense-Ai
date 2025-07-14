@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Menu, X, Trash2 } from "lucide-react";
-import { CodeContext } from "../context/codeContext";
+import { CodeContext } from "../context/CodeContext";
 
 const PreviousCodes = () => {
   const { setCode, code } = useContext(CodeContext);
