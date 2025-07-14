@@ -2,10 +2,10 @@ import { useContext, useState } from "react";
 import LanguageSelector from "../components/LanguageSelector";
 import CodeInput from "../components/CodeInput";
 import ExplainDebugButtons from "../components/ExplainDebugButtons";
-import { CodeContext } from "../context/codeContext";
+import { CodeContext } from "../context/CodeContext";
 import axiosInstance from "../api/axiosConfig";
 import CodeOutput from "../components/CodeOutput";
-import PreviousCodes from "../components/PreviousCodes"; // ✅
+import PreviousCodes from "../components/PreviousCodes"; 
 
 const CodeSense = () => {
   const { code, setCode, language, setLanguage, output, setOutput } =
