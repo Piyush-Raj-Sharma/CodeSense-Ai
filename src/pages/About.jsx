@@ -1,5 +1,5 @@
-import React from "react";
-import { Github, Linkedin, Mail, Globe, Rocket, Wrench } from "lucide-react";
+
+import { Github, Linkedin,Globe, Rocket, Wrench } from "lucide-react";
 
 const About = () => {
   return (
@@ -8,15 +8,15 @@ const About = () => {
       <section className="max-w-4xl w-full mb-16 flex flex-col lg:flex-row items-center gap-10">
         <div className="flex-shrink-0">
           <img
-            src="https://avatars.githubusercontent.com/u/00000000" // Replace with actual image
+            src="https://media.licdn.com/dms/image/v2/D5603AQH8GvUopEZ_xg/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1732709448070?e=1758153600&v=beta&t=FoI8HWzwiGyKZfdhKCSW1xb6hRzR0pdz45S0G0aD_oQ" // Replace with actual image
             alt="Piyush Raj"
-            className="w-32 h-32 rounded-full border-4 border-blue-500 shadow-lg"
+            className="w-32 h-32 rounded-full cover border-4 border-blue-500 shadow-lg"
           />
         </div>
         <div className="text-center lg:text-left">
           <h2 className="text-3xl font-bold text-white mb-1">Piyush Raj</h2>
           <p className="text-gray-400 text-sm mb-2">
-            Frontend Developer | Java & JavaScript Enthusiast | UI Innovator
+            Frontend Developer | Java & JavaScript Enthusiast | Creative Technologist
           </p>
           <p className="text-blue-400 text-sm mb-4">
             🎓 Bachelor of Engineering (B.E.) in Computer Science
@@ -24,16 +24,7 @@ const About = () => {
 
           <div className="flex justify-center lg:justify-start gap-5">
             <a
-              href="https://github.com/yourusername"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="GitHub"
-              className="text-gray-300 hover:text-white transition"
-            >
-              <Github size={22} />
-            </a>
-            <a
-              href="https://linkedin.com/in/yourusername"
+              href="https://www.linkedin.com/in/piyush-raj-sharma/"
               target="_blank"
               rel="noopener noreferrer"
               aria-label="LinkedIn"
@@ -42,13 +33,16 @@ const About = () => {
               <Linkedin size={22} />
             </a>
             <a
-              href="mailto:your.email@example.com"
+              href="https://github.com/Piyush-Raj-Sharma"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="GitHub"
               className="text-gray-300 hover:text-white transition"
-              aria-label="Email"
             >
-              <Mail size={22} />
+              <Github size={22} />
             </a>
-            <a
+
+            {/* <a
               href="https://yourportfolio.com"
               target="_blank"
               rel="noopener noreferrer"
@@ -56,7 +50,7 @@ const About = () => {
               className="text-gray-300 hover:text-white transition"
             >
               <Globe size={22} />
-            </a>
+            </a> */}
           </div>
         </div>
       </section>

@@ -16,22 +16,28 @@ const PreviousCodes = () => {
   }, []);
 
   const newSessionHandler = () => {
+    // If current session is already saved (has ID)
+    if (activeSessionId !== null) {
+      const updated = savedCodes.map((entry) =>
+        entry.id === activeSessionId ? { ...entry, content: code } : entry
+      );
+      setSavedCodes(updated);
+      localStorage.setItem("savedSessions", JSON.stringify(updated));
+    }
+    // If it’s a new unsaved session
+    else if (code.trim()) {
+      const newSession = {
+        id: Date.now(),
+        content: code,
+      };
+      const updated = [newSession, ...savedCodes];
+      setSavedCodes(updated);
+      localStorage.setItem("savedSessions", JSON.stringify(updated));
+    }
+
+    // Clear the editor and session reference
     setCode("");
     setActiveSessionId(null);
-  };
-
-  const saveCodeHandler = () => {
-    if (!code.trim() || activeSessionId !== null) return;
-
-    const newSession = {
-      id: Date.now(),
-      content: code,
-    };
-
-    const updated = [newSession, ...savedCodes];
-    setSavedCodes(updated);
-    localStorage.setItem("savedSessions", JSON.stringify(updated));
-    setActiveSessionId(newSession.id);
   };
 
   const loadSession = (sessionCode, sessionId) => {
@@ -65,7 +71,9 @@ const PreviousCodes = () => {
         } lg:translate-x-0 lg:flex`}
       >
         <div className="w-full">
-          <h2 className="text-lg font-semibold text-white mb-4">📁 Code Sessions</h2>
+          <h2 className="text-lg font-semibold text-white mb-4">
+            📁 Code Sessions
+          </h2>
 
           <button
             onClick={newSessionHandler}
@@ -75,7 +83,9 @@ const PreviousCodes = () => {
           </button>
 
           {savedCodes.length === 0 ? (
-            <p className="text-gray-400 text-xs italic">No saved sessions yet.</p>
+            <p className="text-gray-400 text-xs italic">
+              No saved sessions yet.
+            </p>
           ) : (
             <ul className="space-y-4">
               {savedCodes.map((entry, index) => (
@@ -88,7 +98,12 @@ const PreviousCodes = () => {
                   }`}
                 >
                   <div className="flex items-start justify-between">
-                    <span className="text-blue-400 font-medium mb-1">Entry #{index + 1}</span>
+                    <code
+                      onClick={() => loadSession(entry.content, entry.id)}
+                      className="block whitespace-pre-wrap break-words cursor-pointer hover:text-white transition mt-1"
+                    >
+                      {entry.content.trim().slice(0, 20)}...
+                    </code>
                     <button
                       onClick={() => deleteSession(entry.id)}
                       className="text-gray-500 hover:text-red-500 transition"
@@ -97,13 +112,6 @@ const PreviousCodes = () => {
                       <Trash2 size={14} />
                     </button>
                   </div>
-
-                  <code
-                    onClick={() => loadSession(entry.content, entry.id)}
-                    className="block whitespace-pre-wrap break-words cursor-pointer hover:text-white transition mt-1"
-                  >
-                    {entry.content.slice(0, 20)}...
-                  </code>
                 </li>
               ))}
             </ul>
