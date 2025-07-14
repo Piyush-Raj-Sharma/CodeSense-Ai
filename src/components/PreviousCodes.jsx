@@ -102,7 +102,7 @@ const PreviousCodes = () => {
                       onClick={() => loadSession(entry.content, entry.id)}
                       className="block whitespace-pre-wrap break-words cursor-pointer hover:text-white transition mt-1"
                     >
-                      {entry.content.trim().slice(0, 20)}...
+                      {entry.content.trim().slice(0, 20)}
                     </code>
                     <button
                       onClick={() => deleteSession(entry.id)}
